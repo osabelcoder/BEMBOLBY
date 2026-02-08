@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>BEMBOLBY</title>
+
+<style>
+body {
+  margin: 0;
+  height: 100vh;
+  background: linear-gradient(135deg, #ff4e8d, #ff9a9e);
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Segoe UI', sans-serif;
+  color: #fff;
+}
+
+/* INTRO BONE */
+#intro {
+  text-align: center;
+  cursor: pointer;
+  animation: bounce 1.5s infinite;
+}
+
+#intro h1 {
+  font-size: 2em;
+  margin-top: 15px;
+}
+
+#bone {
+  font-size: 6em;
+}
+
+/* BOUNCE */
+@keyframes bounce {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+/* CARD */
+.card {
+  display: none;
+  background: rgba(255,255,255,0.2);
+  backdrop-filter: blur(10px);
+  padding: 35px;
+  border-radius: 25px;
+  max-width: 720px;
+  text-align: center;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+  z-index: 2;
+}
+
+h1 {
+  font-size: 2.6em;
+}
+
+#countdown {
+  font-size: 1.4em;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+#proposal {
+  font-size: 1.1em;
+  line-height: 1.6;
+  min-height: 220px;
+}
+
+button {
+  font-size: 1.3em;
+  padding: 14px 30px;
+  margin: 10px;
+  border: none;
+  border-radius: 40px;
+  cursor: pointer;
+  background: #ff4d6d;
+  color: white;
+  transition: 0.2s;
+  position: relative;
+}
+
+.big-yes {
+  font-size: 1.8em;
+  padding: 22px 50px;
+  background: #ff0033;
+  box-shadow: 0 0 25px rgba(255,0,80,1);
+}
+
+.next-btn {
+  display: none;
+  margin-top: 20px;
+  font-size: 1.4em;
+  background: #ff85a2;
+}
+
+.result, .reasons {
+  display: none;
+  margin-top: 20px;
+}
+
+.reasons p {
+  font-size: 1.2em;
+}
+
+.page {
+  display: none;
+}
+
+.page.active {
+  display: block;
+}
+
+.heart {
+  position: absolute;
+  bottom: -20px;
+  animation: floatUp 8s linear infinite;
+}
+
+@keyframes floatUp {
+  from { transform: translateY(0); opacity: 1; }
+  to { transform: translateY(-110vh); opacity: 0; }
+}
+
+.confetti {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  animation: fall 3s linear forwards;
+}
+
+@keyframes fall {
+  from { transform: translateY(0) rotate(0); opacity: 1; }
+  to { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- INTRO BONE SCREEN -->
+<div id="intro" onclick="startExperience()">
+  <div id="bone">🦴</div>
+  <h1>CLICK ME BERNARD</h1>
+</div>
+
+<!-- MUSIC -->
+<iframe id="music" width="0" height="0" allow="autoplay"></iframe>
+
+<!-- MAIN CARD -->
+<div class="card" id="mainCard">
+
+  <!-- PAGE 1 -->
+  <div class="page active" id="page1">
+    <h1 id="title">💘 Advance Happy Valentine’s Day, Bebsy 💘</h1>
+    <div id="countdown"></div>
+    <div id="proposal"></div>
+
+    <button id="noBtn">NO</button>
+    <button class="big-yes" onclick="yesssss()">YESSSSSS</button>
+
+    <div class="result" id="result">
+      OTOTHEMTOTHEGGGGGGGGG!!!! ❤️ See youuuuuu!!!!!
+    </div>
+
+    <div class="reasons" id="reasons">
+      <p>💖 Because you make ordinary days feel special bisan ur maldita</p>
+    </div>
+
+    <button class="next-btn" id="nextBtn" onclick="nextPage()">Next ➜</button>
+  </div>
+
+  <!-- PAGE 2 -->
+  <div class="page" id="page2">
+    <h1>☕</h1>
+    <h1>Kape tana</h1>
+    <h2>just kita ra duha AHAHAHHAHAHAHAHAHHAAHHAHAHAHA ☕</h2>
+  </div>
+
+</div>
+
+<script>
+function startExperience() {
+  document.getElementById("intro").style.display = "none";
+  document.getElementById("mainCard").style.display = "block";
+  typeText();
+}
+
+// Countdown
+const valentine = new Date(new Date().getFullYear(), 1, 14);
+setInterval(() => {
+  const now = new Date();
+  const diff = valentine - now;
+  const d = Math.floor(diff / (1000*60*60*24));
+  const h = Math.floor((diff / (1000*60*60)) % 24);
+  const m = Math.floor((diff / (1000*60)) % 60);
+  document.getElementById("countdown").innerHTML =
+    `⏳ Valentine’s Day in ${d}d ${h}h ${m}m`;
+}, 1000);
+
+// Typing text
+const text = `I’m truly sorry for my mistakes and for any pain or confusion I may have caused, especially ganiha.
+I’ve taken time to reflect, and I genuinely regret the moments where I fell short.
+Please know that my feelings are real, and I’m willing to learn, grow, and do better.
+Not just with words, but now through my actions.
+
+You mean so much to me, and I’d love the chance to make things right and create new,
+happier memories together.
+
+Will you be my Valentine? ❤️`;
+
+let i = 0;
+function typeText() {
+  if (i < text.length) {
+    document.getElementById("proposal").innerHTML +=
+      text.charAt(i) === "\n" ? "<br>" : text.charAt(i);
+    i++;
+    setTimeout(typeText, 30);
+  }
+}
+
+// NO dodge
+noBtn.addEventListener("mouseenter", () => {
+  const x = Math.random() * 250 - 125;
+  const y = Math.random() * 250 - 125;
+  noBtn.style.transform = `translate(${x}px, ${y}px)`;
+});
+
+// Music
+function playMusic() {
+  document.getElementById("music").src =
+    "https://www.youtube.com/embed/4Lx0pR5HkG0?autoplay=1&mute=0";
+}
+
+// Confetti
+function confettiBoom() {
+  for (let i = 0; i < 180; i++) {
+    const c = document.createElement("div");
+    c.className = "confetti";
+    c.style.left = Math.random() * 100 + "vw";
+    c.style.background =
+      ["#ff0","#f0f","#0ff","#0f0","#f00"][Math.floor(Math.random()*5)];
+    document.body.appendChild(c);
+    setTimeout(() => c.remove(), 3000);
+  }
+}
+
+function yesssss() {
+  playMusic();
+  confettiBoom();
+  document.getElementById("title").innerText = "For my favorite person 💕";
+  document.getElementById("result").style.display = "block";
+  document.getElementById("reasons").style.display = "block";
+  document.getElementById("nextBtn").style.display = "inline-block";
+}
+
+function nextPage() {
+  document.getElementById("page1").classList.remove("active");
+  document.getElementById("page2").classList.add("active");
+}
+
+// Hearts
+setInterval(() => {
+  const heart = document.createElement("div");
+  heart.className = "heart";
+  heart.innerHTML = "💖";
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.fontSize = Math.random() * 25 + 15 + "px";
+  document.body.appendChild(heart);
+  setTimeout(() => heart.remove(), 8000);
+}, 300);
+</script>
+
+</body>
+</html>
